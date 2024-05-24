@@ -5,8 +5,9 @@
 #include "llvm/IR/PassManager.h"
 #include "llvm/IR/Module.h"
 
-
 using namespace llvm;
+
+std::string result;
 
 struct Test : public PassInfoMixin<Test> {
   void printModule(Module &M);
