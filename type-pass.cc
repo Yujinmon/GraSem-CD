@@ -117,9 +117,87 @@ void Test::getTypeString(Module &M) {
             I.getOperand(1)->getType()->print(rso);
 
             result += typeStr + '\n';
-        }
-        
-        else if(I.getOpcode() == Instruction::Call) { // Call: funcion_name function_ret_type function_param_type
+        }else if(I.getOpcode() == Instruction::Shl){
+            result += "Shl: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getOperand(1)->getType()->print(rso);
+
+            result += typeStr + '\n';
+        }else if(I.getOpcode() == Instruction::And) {
+            result += "And: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getOperand(1)->getType()->print(rso);
+
+            result += typeStr + '\n';
+        }else if(I.getOpcode() == Instruction::Or){
+            result += "Or: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getOperand(1)->getType()->print(rso);
+
+            result += typeStr + '\n';
+        }else if(I.getOpcode() == Instruction::Xor) {
+            result += "Xor: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getOperand(1)->getType()->print(rso);
+
+            result += typeStr + '\n';
+        }else if(I.getOpcode() == Instruction::Alloca) { // Alloca: op_type pointer_type
+            result += "Alloca: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getType()->print(rso);
+
+            result += typeStr + '\n';
+        }else if(I.getOpcode() == Instruction::Load) { // Load: load_mem_type var_type
+            result += "Load: ";
+            
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getType()->print(rso);
+
+            result += typeStr + '\n';  
+        }else if(I.getOpcode() == Instruction::Store) { // Store: op1_type store_mem_type
+            typeStr += "Store: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getOperand(1)->getType()->print(rso);
+
+            result += typeStr + '\n';
+        }else if(I.getOpcode() == Instruction::GetElementPtr) {
+            typeStr += "GetElementPtr: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getOperand(1)->getType()->print(rso);
+
+            result += typeStr + '\n';
+        }else if(I.getOpcode() == Instruction::PtrToInt) {
+            typeStr += "PtrToInt: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getOperand(1)->getType()->print(rso);
+
+            result += typeStr + '\n';
+        }else if(I.getOpcode() == Instruction::IntToPtr) {
+            typeStr += "IntToPtr: ";
+
+            I.getOperand(0)->getType()->print(rso);
+            typeStr += " ";
+            I.getOperand(1)->getType()->print(rso);
+
+            result += typeStr + '\n';
+        } else if(I.getOpcode() == Instruction::Call) { // Call: funcion_name function_ret_type function_param_type
           result += "Call: ";
           
           if(auto* callInst = dyn_cast<CallInst>(&I)) { // checking called function 
@@ -132,6 +210,12 @@ void Test::getTypeString(Module &M) {
 
             result += typeStr + '\n';
           }
+        }else {
+          result += "Other: ";
+
+          I.getType()->print(rso);
+
+          result += typeStr + '\n';
         }
       }
     }
